@@ -10,12 +10,6 @@ const videoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  duration: {
-    type: Number,
-  },
-  resolution: {
-    type: String,
-  },
   uploadedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -49,6 +43,9 @@ const videoSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment',
   }],
+  uploadedAgo: {
+    type: String, // Assuming 'uploadedAgo' is a string field
+  },
 });
 
 const Video = mongoose.model('Video', videoSchema, 'Videos');
