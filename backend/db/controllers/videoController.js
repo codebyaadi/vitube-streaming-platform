@@ -1,6 +1,8 @@
 import dotenv from "dotenv";
 import { v2 as cloudinary } from "cloudinary";
 import Video from "../models/Videos.js";
+import User from "../models/Users.js";
+import calculateUploadedTime from "../utils/calcUploadTIme.js";
 
 dotenv.config();
 
@@ -12,14 +14,14 @@ cloudinary.config({
 
 export const uploadVideo = async (req, res) => {
   try {
-    const { title, description, duration, uploadedBy, videoUrl } = req.body;
+    const { title, description, uploadedBy, videoUrl, thumbnailUrl } = req.body;
 
     const newVideo = await Video.create({
       title,
       description,
-      duration,
       uploadedBy,
       videoUrl,
+      thumbnailUrl,
     });
 
     return res.status(201).json({ message: "Video uploaded successfully.", data: newVideo });
@@ -33,10 +35,46 @@ export const uploadVideo = async (req, res) => {
 
 export const getAllVideos = async (req, res) => {
   try {
-    const videos = await Video.find(); // Use your Mongoose model to query the database for videos
+    const videos = await Video.find().populate({
+      path: 'uploadedBy',
+      model: User,
+      select: 'fullName username profilePicture',
+    });
+
+    const currentTime = new Date();
+    videos.forEach(video => {
+      const createdAt = video.createdAt;
+      const timeDifference = currentTime - createdAt;
+      const elapsed = calculateUploadedTime(timeDifference);
+      video.uploadedAgo = elapsed;
+      console.log(video.uploadedAgo)
+    });
+    console.log("Data for the first video:", videos[0].uploadedAgo);
     res.status(200).json(videos);
   } catch (error) {
     console.error('Error fetching videos:', error);
     res.status(500).json({ message: 'An error occurred while fetching videos.' });
   }
 };
+
+export const getSingleVideo = async (req, res) => {
+  const { videoId } = req.params;
+  console.log(videoId)
+
+  try {
+    const video = await Video.findById(videoId).populate({
+      path: 'uploadedBy',
+      model: User,
+      select: "fullName username profilePicture"
+    });
+
+    if (!video) {
+      return res.status(404).json({ message: 'Video not found.' });
+    }
+
+    res.status(200).json(video);
+  } catch (error) {
+    console.error('Error fetching video by ID:', error);
+    res.status(500).json({ message: 'An error occurred while fetching the video.' });
+  }
+}
