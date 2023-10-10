@@ -21,8 +21,8 @@ const Sidebar = ({profile, name, username}) => {
                 <p className="font-prompt text-sm text-white/60">@{username}</p>
             </div>
         </div>
-        <div id="menus">
-          <Link to={`/dashboard/${user.userId}/upload`} className="border-b border-[#3E3E3E] py-3">Upload</Link>
+        <div id="menus" className="w-full flex flex-col font-prompt text-base px-3 my-3">
+          <Link to={`/dashboard/${user.userId}/upload`} className="bg-red-500 rounded-sm text-sm text-center px-3 py-2">Upload</Link>
         </div>
         <div id="bottom-menus" className="w-full flex flex-col absolute bottom-0 font-prompt text-base border-t border-[#3E3E3E] px-3">
           <Link to={`/dashboard/${user.userId}/settings`} className="border-b border-[#3E3E3E] py-3">Setting</Link>
