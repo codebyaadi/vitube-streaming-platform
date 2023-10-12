@@ -27,6 +27,13 @@ const userSchema = new mongoose.Schema({
         type: String, // You can use a String to store the URL or file path of the profile picture.
         default: "https://res.cloudinary.com/dqcejxdbf/image/upload/v1695815974/DreamShaper_v7_A_businessman_3_gxwm8c.jpg", // You can set a default profile picture if none is provided.
     },
+    emailOTP: {
+        type: String, // Store the OTP for email verification
+    },
+    isEmailVerified: {
+        type: Boolean,
+        default: false, // You can use this field to track whether the email is verified or not.
+    },
     createdAt: {
         type: Date,
         default: Date.now,
