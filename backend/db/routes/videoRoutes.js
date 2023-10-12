@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { getAllVideos, uploadVideo } from "../controllers/videoController.js";
+import { getAllVideos, getSingleVideo, uploadVideo } from "../controllers/videoController.js";
 
 const router = express.Router();
 
@@ -14,6 +14,16 @@ const upload = multer({ storage: storage });
 
 router.post("/v1/upload", upload.single('videoFile'), uploadVideo)
 
+// // // // // // // // // // // // // // // // // // // // // // // // // //
+// *                           ALL VIDEO ROUTE                          *  //
+// // // // // // // // // // // // // // // // // // // // // // // // // //
+
 router.get("/v1/getAllVideos", getAllVideos)
+
+// // // // // // // // // // // // // // // // // // // // // // // // // //
+// *                         SINGLE VIDEO ROUTE                         *  //
+// // // // // // // // // // // // // // // // // // // // // // // // // //
+
+router.get("/v1/getSingleVideos/:videoId", getSingleVideo)
 
 export default router;
