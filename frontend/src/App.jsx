@@ -5,15 +5,17 @@ import Home from './pages/home';
 import Dashboard from './pages/dashboard';
 import ProtectedRoute from './components/auth/protectedroute';
 import VideoPage from './pages/video-page';
+import OtpVerify from './components/auth/otp-verify';
 
 function App() {
 
   return (
-    <div className="mt-24">
+    <div className="mt-14 md:mt-16 lg:mt-20">
     <BrowserRouter>
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/verify-otp' element={<OtpVerify />} />
         <Route path='/video/:videoId' element={<VideoPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path='/dashboard/:userId/*' element={<Dashboard />} />
