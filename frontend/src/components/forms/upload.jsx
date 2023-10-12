@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
 import useUserInfoFromToken from "../../hooks/userinfo";
+import api from "../../api/base/config";
+import uploadVideo from "../../api/cloudinary/uploadVideo";
+import uploadImage from "../../api/cloudinary/uploadImage";
 
 const VideoUpload = () => {
   const user = useUserInfoFromToken();
@@ -42,8 +44,8 @@ const VideoUpload = () => {
 
     try {
       setLoading(true);
-      const videoUrl = await uploadVideo();
-      const thumbnailUrl = await uploadImage();
+      const videoUrl = await uploadVideo(video, setPercent);
+      const thumbnailUrl = await uploadImage(image);
 
       if (videoUrl && thumbnailUrl) {
         await saveVideoInfoToDatabase(videoUrl, thumbnailUrl);
@@ -66,66 +68,14 @@ const VideoUpload = () => {
     }
   };
 
-  const uploadVideo = async () => {
-    const data = new FormData();
-    data.append("file", video);
-    data.append("upload_preset", "my_video"); // Replace with your Cloudinary preset
-
-    try {
-      const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-      const resourceType = "video";
-      const api = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`;
-
-      const config = {
-        onUploadProgress: (progressEvent) => {
-          const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          console.log(`Uploading: ${percentCompleted}%`);
-          setPercent(percentCompleted);
-        },
-      };
-
-      const res = await axios.post(api, data, config);
-      const { secure_url } = res.data;
-
-      console.log(secure_url);
-      return secure_url;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const uploadImage = async () => {
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "my_image"); // Replace with your Cloudinary preset
-
-    try {
-      const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-      const resourceType = "image";
-      const api = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`;
-
-      const res = await axios.post(api, data);
-      const { secure_url } = res.data;
-
-      console.log(secure_url);
-      return secure_url;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const saveVideoInfoToDatabase = async (videoUrl, thumbnailUrl) => {
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/upload", // Adjust the route as needed
-        {
-          ...formData,
-          uploadedBy: user.userId,
-          thumbnailUrl: thumbnailUrl,
-          videoUrl: videoUrl,
-        }
-      );
+      const response = await api.post("/upload", {
+        ...formData,
+        uploadedBy: user.userId,
+        thumbnailUrl: thumbnailUrl,
+        videoUrl: videoUrl,
+      });
 
       if (response.status === 201) {
         console.log("Video information saved to the database.", response.data);
@@ -138,7 +88,7 @@ const VideoUpload = () => {
   };
 
   return (
-    <div className="w-auto mt-16 ml-64 bg-[#282828] border border-[#3E3E3E] py-16 px-8 rounded-sm flex flex-col gap-2 font-prompt">
+    <div className="w-auto mt-16 ml-0 md:ml-64 lg:ml-64 bg-[#282828] border border-[#3E3E3E] py-16 px-8 rounded-sm flex flex-col gap-2 font-prompt">
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col items-start gap-2">
           <h1 className="text-xl font-semibold">Upload Video</h1>

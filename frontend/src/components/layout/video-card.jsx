@@ -10,7 +10,7 @@ const VideoCard = ({
   videoId
 }) => {
   return (
-    <div className="bg-[#282828] border border-[#3E3E3E] w-64 p-2">
+    <div className="bg-[#282828] border border-[#3E3E3E] w-full lg:w-72 md:w-80 p-2">
       <div id="video-container" className="w-full h-32 overflow-hidden">
         <img className="w-full object-cover" src={thumbnailUrl} alt={title} />
       </div>

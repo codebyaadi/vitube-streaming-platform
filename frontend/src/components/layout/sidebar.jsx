@@ -11,9 +11,10 @@ const Sidebar = ({profile, name, username}) => {
       // Clear the token or perform any other necessary logout actions
       Cookies.removeItem("token", { secure: true, sameSite: "None" });
       navigate("/");
+      window.location.reload();
     };
   return (
-    <aside className="fixed top-0 left-0 h-screen bg-[#282828] w-64 border-r border-[#3E3E3E] pt-24">
+    <aside className="hidden md:block lg:block fixed top-0 left-0 h-screen bg-[#282828] w-64 border-r border-[#3E3E3E] pt-24">
         <div className="flex flex-col justify-center items-center" id="profile">
             <img src={profile} alt="Profile Photo" className="rounded-full w-28 h-28 object-cover" />
             <div className="flex flex-col justify-center items-center mt-4" id="profile-basic-details">

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import useUserInfoFromToken from "../hooks/userinfo";
 import VideoCard from "../components/layout/video-card";
-import axios from "axios";
+import api from "../api/base/config";
 
 const Home = () => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/v1/getAllVideos")
+    api
+      .get("/getAllVideos")
       .then((response) => {
         setVideos(response.data);
         console.log(response.data)
@@ -19,7 +18,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="mt-16 flex gap-2 flex-wrap">
+    <div className="flex justify-center gap-3 flex-wrap">
       {videos.map((video) => (
         <VideoCard
           key={video._id}

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, X, AlertCircle } from "lucide-react";
-import axios from "axios";
 import Cookies from 'js-cookies';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+import api from '../../api/base/config';
 
 const LogIn = ({ setLogInToggle }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,20 +21,21 @@ const LogIn = ({ setLogInToggle }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/login', userData);
+      const response = await api.post('/login', userData);
       console.log(response);
 
       if (response.status === 200) {
         const { token } = response.data;
-        Cookies.setItem('token', token, { expires: 1/24 });
+        Cookies.setItem('token', token, { expires: 1 / 24 });
         const tokenvalue = Cookies.getItem('token');
-        console.log("Cookies", tokenvalue,  { secure: true, sameSite: "None" })
+        console.log("Cookies", tokenvalue, { secure: true, sameSite: "None" })
         const decodedToken = jwt_decode(tokenvalue);
         console.log(decodedToken.userId)
         // Login was successful, you can perform any necessary actions here
         console.log('Login successful');
         setLogInToggle(false);
         navigate(`/dashboard/${decodedToken.userId}`)
+        window.location.reload();
       } else {
         // Handle other success cases or provide error messages
         console.log('Login failed');
@@ -48,7 +49,7 @@ const LogIn = ({ setLogInToggle }) => {
 
   return (
     <div className="fixed bg-black/60 w-full h-full z-20 left-0 top-0">
-      <div className="w-1/3 absolute bg-[#282828] border border-[#3E3E3E] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-16 px-8 rounded-sm flex flex-col gap-2 font-prompt">
+      <div className="w-[22rem] md:w-1/2 lg:w-1/3 absolute bg-[#282828] border border-[#3E3E3E] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-6 md:py-8 lg:py-16 px-8 rounded-sm flex flex-col gap-2 font-prompt">
         <button
           className="absolute top-0 right-0 m-4"
           onClick={() => setLogInToggle(false)}
