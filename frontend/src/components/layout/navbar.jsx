@@ -8,7 +8,6 @@ import { Menu } from "lucide-react";
 import Sidebar from "./sidebar";
 
 const Navbar = () => {
-  const [signUpToggle, setSignUpToggle] = useState(false);
   const [logInToggle, setLogInToggle] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -59,13 +58,13 @@ const Navbar = () => {
             <>
               <button
                 className="py-3 px-4 rounded-sm text-sm mr-2 hover:bg-[#3e3e3e]/60"
-                onClick={(e) => setLogInToggle(true)}
+                onClick={(e) => navigate("/login")}
               >
                 Log In
               </button>
               <button
                 className="bg-red-500 py-3 px-4 rounded-sm text-sm"
-                onClick={(e) => setSignUpToggle(true)}
+                onClick={(e) => navigate("/register")}
               >
                 Sign Up
               </button>
@@ -81,8 +80,6 @@ const Navbar = () => {
         setIsOpen={setIsOpen}
         visible="hidden"
       />
-      {signUpToggle && <SignUp setSignUpToggle={setSignUpToggle} />}
-      {logInToggle && <LogIn setLogInToggle={setLogInToggle} />}
     </>
   );
 };

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import api from '../../api/base/config';
 
-const LogIn = ({ setLogInToggle }) => {
+const LogIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState();
   const [userData, setUserData] = useState({
@@ -48,14 +48,8 @@ const LogIn = ({ setLogInToggle }) => {
   };
 
   return (
-    <div className="fixed bg-black/60 w-full h-full z-20 left-0 top-0">
-      <div className="w-[22rem] md:w-1/2 lg:w-1/3 absolute bg-[#282828] border border-[#3E3E3E] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-6 md:py-8 lg:py-16 px-8 rounded-sm flex flex-col gap-2 font-prompt">
-        <button
-          className="absolute top-0 right-0 m-4"
-          onClick={() => setLogInToggle(false)}
-        >
-          <X className="w-4 h-4 text-slate-400" />
-        </button>
+    <div className=" bg-black/60 w-full h-full">
+      <div className="w-[22rem] md:w-1/2 lg:w-1/3 bg-[#282828] border border-[#3E3E3E] left-1/2 transform -translate-x-1/2 py-6 md:py-8 lg:py-16 px-8 rounded-sm flex flex-col gap-2 font-prompt">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col items-start gap-2">
             <h1 className="text-xl font-semibold">Log In</h1>

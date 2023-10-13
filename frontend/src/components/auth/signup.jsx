@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Eye, EyeOff, X, AlertCircle } from "lucide-react";
 import api from "../../api/base/config";
-import OtpVerify from "./otp-verify";
+import { useNavigate } from "react-router-dom";
 
-const SignUp = ({ setSignUpToggle }) => {
-  const [otpToggle, setOtpToggle] = useState(false);
+const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState();
   const [formData, setFormData] = useState({
@@ -13,7 +12,7 @@ const SignUp = ({ setSignUpToggle }) => {
     email: "",
     password: "",
   });
-
+  const navigate = useNavigate();
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
@@ -28,7 +27,7 @@ const SignUp = ({ setSignUpToggle }) => {
         // Signup was successful, you can perform any necessary actions here
         console.log("Signup successful");
         sessionStorage.setItem("email", formData.email);
-        setOtpToggle(true);
+        navigate("/verify-otp")
       } else {
         // Handle signup failure, e.g., display an error message to the user
         console.error("Signup failed", error.response);
@@ -47,21 +46,10 @@ const SignUp = ({ setSignUpToggle }) => {
     });
   };
 
-  console.log(otpToggle);
-
   return (
     <div>
-      {otpToggle ? (
-        <OtpVerify setOtpToggle={setOtpToggle} />
-      ) : (
-        <div className="fixed bg-black/60 w-full h-full z-20 left-0 top-0 px-2 md:px-0 lg:px-0">
-          <div className="w-[22rem] md:w-1/2 lg:w-1/3 absolute bg-[#282828] border border-[#3E3E3E] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-6 md:py-8 lg:py-16 px-8 rounded-sm flex flex-col gap-2 font-prompt">
-            <button
-              className="absolute top-0 right-0 m-4"
-              onClick={(e) => setSignUpToggle(false)}
-            >
-              <X className="w-4 h-4 text-slate-400" />
-            </button>
+        <div className="w-full h-full z-20 left-0 top-0 px-2 md:px-0 lg:px-0">
+          <div className="w-[22rem] md:w-1/2 lg:w-1/3 absolute bg-[#282828] border border-[#3E3E3E] left-1/2 transform -translate-x-1/2 py-6 md:py-8 lg:py-16 px-8 rounded-sm flex flex-col gap-2 font-prompt">
             <form onSubmit={handleSubmit}>
               <div className="flex flex-col items-start gap-2">
                 <h1 className="text-xl font-semibold">Create an account</h1>
@@ -147,7 +135,6 @@ const SignUp = ({ setSignUpToggle }) => {
             </form>
           </div>
         </div>
-      )}
     </div>
   );
 };

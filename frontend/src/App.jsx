@@ -6,6 +6,8 @@ import Dashboard from './pages/dashboard';
 import ProtectedRoute from './components/auth/protectedroute';
 import VideoPage from './pages/video-page';
 import OtpVerify from './components/auth/otp-verify';
+import SignUp from './components/auth/signup';
+import LogIn from './components/auth/login';
 
 function App() {
 
@@ -15,6 +17,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/register' element={<SignUp />} />
+        <Route path='/login' element={<LogIn />} />
         <Route path='/verify-otp' element={<OtpVerify />} />
         <Route path='/video/:videoId' element={<VideoPage />} />
         <Route element={<ProtectedRoute />}>
