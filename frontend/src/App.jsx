@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from './components/layout/navbar';
 import Home from './pages/home';
 import Dashboard from './pages/dashboard';
@@ -10,7 +10,7 @@ import OtpVerify from './components/auth/otp-verify';
 function App() {
 
   return (
-    <div className="mt-14 md:mt-16 lg:mt-20">
+    <div className="mt-28 md:mt-16 lg:mt-20">
     <BrowserRouter>
       <Navbar />
       <Routes>

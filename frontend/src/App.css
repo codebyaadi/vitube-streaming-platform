@@ -9,3 +9,24 @@
   margin: 0 auto;
   padding: 2rem;
 }
+
+/* Media query for small screens (e.g., phones) */
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+  }
+}
+
+/* Media query for medium-sized screens (e.g., tablets) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  #root {
+    padding: 1.5rem;
+  }
+}
+
+/* Media query for large screens (e.g., desktops) */
+@media (min-width: 1025px) {
+  #root {
+    padding: 2rem;
+  }
+}
