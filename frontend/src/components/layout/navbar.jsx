@@ -32,13 +32,15 @@ const Navbar = () => {
     <>
       <nav className="bg-[#282828] w-full flex flex-row justify-between items-center fixed top-0 left-0 z-10 px-4 md:px-6 lg:px-10 py-4 border-b border-[#3E3E3E]">
         <div className="flex justify-center items-center gap-2">
-          <button
-            id="menu"
-            className="block md:hidden lg:hidden"
-            onClick={() => setIsOpen(true)}
-          >
-            <Menu />
-          </button>
+          {isLoggedIn && (
+            <button
+              id="menu"
+              className="block md:hidden lg:hidden"
+              onClick={() => setIsOpen(true)}
+            >
+              <Menu />
+            </button>
+          )}
           <div id="logo" className="font-syne font-bold text-2xl text-red-600">
             <Link to="/">Vitube</Link>
           </div>
