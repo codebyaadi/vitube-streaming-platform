@@ -10,7 +10,7 @@ import OtpVerify from './components/auth/otp-verify';
 function App() {
 
   return (
-    <div className="mt-28 md:mt-16 lg:mt-20">
+    <div className="mt-16 md:mt-16 lg:mt-20">
     <BrowserRouter>
       <Navbar />
       <Routes>
