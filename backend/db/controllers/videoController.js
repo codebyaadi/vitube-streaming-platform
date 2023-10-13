@@ -72,6 +72,17 @@ export const getSingleVideo = async (req, res) => {
       return res.status(404).json({ message: 'Video not found.' });
     }
 
+    video.views += 1;
+    await video.save();
+
+    // Calculate time difference in milliseconds
+    const currentTime = new Date();
+    const createdAt = video.createdAt;
+    const timeDiff = currentTime - createdAt;
+
+    // Calculate uploadedAgo
+    video.uploadedAgo = calculateUploadedTime(timeDiff);
+
     res.status(200).json(video);
   } catch (error) {
     console.error('Error fetching video by ID:', error);
