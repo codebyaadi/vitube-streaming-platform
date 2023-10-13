@@ -47,8 +47,7 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-        <div className="w-full h-full z-20 left-0 top-0 px-2 md:px-0 lg:px-0">
+        <div className="w-full h-full px-2 md:px-0 lg:px-0">
           <div className="w-[22rem] md:w-1/2 lg:w-1/3 absolute bg-[#282828] border border-[#3E3E3E] left-1/2 transform -translate-x-1/2 py-6 md:py-8 lg:py-16 px-8 rounded-sm flex flex-col gap-2 font-prompt">
             <form onSubmit={handleSubmit}>
               <div className="flex flex-col items-start gap-2">
@@ -135,7 +134,6 @@ const SignUp = () => {
             </form>
           </div>
         </div>
-    </div>
   );
 };
 
