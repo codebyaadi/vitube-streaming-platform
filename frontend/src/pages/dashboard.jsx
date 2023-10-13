@@ -15,6 +15,9 @@ const Dashboard = () => {
         profile={user.profile}
         name={user.name}
         username={user.username}
+        isOpen={false}
+        setIsOpen={() => {}}
+        visible="block"
       />
       <Routes>
         <Route path="settings" element={<Settings />} />
