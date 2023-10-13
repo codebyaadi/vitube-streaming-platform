@@ -110,46 +110,48 @@ export const logIn = async (req, res) => {
 
 export const updateUser = async (req, res) => {
     try {
-        const { userId, username, name } = req.body;
-        const image = req.file;
-        console.log(image);
-        if (!image) {
-            return res.status(400).json({ message: 'Image file is required.' });
-        }
-
-        // Convert the file buffer to a data URL //
+      const { userId, username, name } = req.body;
+      const image = req.file;
+  
+      if (!image && username == null && name == null) {
+        return res.status(400).json({ message: 'At least one attribute (image, name, username) is required for an update.' });
+      }
+  
+      const user = await User.findById(userId);
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found." });
+      }
+  
+      if (username !== null) {
+        user.username = username;
+      }
+  
+      if (name !== null) {
+        user.fullName = name;
+      }
+  
+      if (image) {
+        // Convert the file buffer to a data URL
         const dataUrl = `data:${image.mimetype};base64,${image.buffer.toString('base64')}`;
-
         // Upload data URL to Cloudinary and get the image URL
         const uploadedImage = await cloudinary.v2.uploader.upload(dataUrl);
-
+  
         if (!uploadedImage.secure_url) {
-            return res.status(500).json({ message: 'Image upload failed.' });
+          return res.status(500).json({ message: 'Image upload failed.' });
         }
-
-        const user = await User.findById(userId);
-
-        if (!userId) {
-            return res.status(404).json({ message: "User not found." });
-        }
-
-        if (username) {
-            user.username = username;
-        }
-
-        if (name) {
-            user.fullName = name;
-        }
-
+  
         user.profilePicture = uploadedImage.secure_url;
-
-        await user.save();
-        return res.status(200).json({ message: "Changes updated successfull", data: user });
+      }
+  
+      await user.save();
+  
+      return res.status(200).json({ message: "Changes updated successfully", data: user });
     } catch (error) {
-        console.error("Error while updating profile:", error);
-        return res.status(500).json({ message: "Something went wrong." });
+      console.error("Error while updating profile:", error);
+      return res.status(500).json({ message: "Something went wrong." });
     }
-};
+  };  
 
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 // *                       VERIFY OTP CONTROLLER                         * //
