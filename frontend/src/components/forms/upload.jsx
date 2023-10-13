@@ -3,12 +3,15 @@ import useUserInfoFromToken from "../../hooks/userinfo";
 import api from "../../api/base/config";
 import uploadVideo from "../../api/cloudinary/uploadVideo";
 import uploadImage from "../../api/cloudinary/uploadImage";
+import SelectBar from "../micro/selection-bar";
 
 const VideoUpload = () => {
   const user = useUserInfoFromToken();
 
   // State variables
   const [msg, setMsg] = useState("");
+  const [selectedVideoName, setSelectedVideoName] = useState("")
+  const [selectedImageName, setSelectedImageName] = useState("")
   const [video, setVideo] = useState(null);
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -28,10 +31,12 @@ const VideoUpload = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setVideo(file);
+    setSelectedVideoName(file.name)
   };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
+    setSelectedImageName(file.name)
   };
 
   const handleSubmit = async (e) => {
@@ -121,28 +126,108 @@ const VideoUpload = () => {
             <label className="text-sm" htmlFor="videoFile">
               Select Video
             </label>
-            <input
+            {/* <input
               className="w-full text-sm px-2 py-2.5 mt-2 rounded border border-[#3E3E3E] bg-[#1F1F1F] focus:outline-none"
               type="file"
               name="videoFile"
               id="videoFile"
               accept="video/*"
               onChange={handleFileChange}
-            />
+            /> */}
+            <div className="flex items-center justify-center w-full mt-2">
+              <label
+                for="videoFile"
+                className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+              >
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  <svg
+                    className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 16"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                    />
+                  </svg>
+                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                    <span class="font-semibold">Click to upload</span> or drag
+                    and drop
+                  </p>
+                  <p clasNames="text-xs text-gray-500 dark:text-gray-400">
+                    SVG, PNG, JPG or GIF (MAX. 800x400px)
+                  </p>
+                  {selectedVideoName != "" && <SelectBar text={selectedVideoName} />}
+                </div>
+                <input
+                  id="videoFile"
+                  type="file"
+                  className="hidden"
+                  name="videoFile"
+                  accept="video/*"
+                  onChange={handleFileChange}
+                />
+              </label>
+            </div>
           </div>
           {/* File input for image selection */}
           <div className="relative w-full flex flex-col items-start mt-2">
             <label className="text-sm" htmlFor="videoFile">
               Select Thumbnail
             </label>
-            <input
+            {/* <input
               className="w-full text-sm px-2 py-2.5 mt-2 rounded border border-[#3E3E3E] bg-[#1F1F1F] focus:outline-none"
               type="file"
               name="imageFile"
               id="imageFile"
               accept="image"
               onChange={handleImageChange}
-            />
+            /> */}
+            <div className="flex items-center justify-center w-full mt-2">
+              <label
+                for="imageFile"
+                className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+              >
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  <svg
+                    className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 16"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                    />
+                  </svg>
+                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                    <span class="font-semibold">Click to upload</span> or drag
+                    and drop
+                  </p>
+                  <p clasNames="text-xs text-gray-500 dark:text-gray-400">
+                    SVG, PNG, JPG or GIF (MAX. 800x400px)
+                  </p>
+                  {selectedImageName != "" && <SelectBar text={selectedImageName} />}
+                </div>
+                <input
+                  id="imageFile"
+                  type="file"
+                  className="hidden"
+                  name="imageFile"
+                  accept="image"
+                  onChange={handleImageChange}
+                />
+              </label>
+            </div>
           </div>
         </div>
 
