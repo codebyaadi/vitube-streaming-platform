@@ -12,6 +12,10 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+// // // // // // // // // // // // // // // // // // // // // // // // // // // //
+// *                          UPLOAD VIDEO CONTROLLER                           * //
+// // // // // // // // // // // // // // // // // // // // // // // // // // // //
+
 export const uploadVideo = async (req, res) => {
   try {
     const { title, description, uploadedBy, videoUrl, thumbnailUrl } = req.body;
@@ -32,6 +36,10 @@ export const uploadVideo = async (req, res) => {
       .json({ message: "An error occurred while uploading the video." });
   }
 };
+
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+// *                          GET ALL VIDEOS CONTROLLER                           * //
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // //
 
 export const getAllVideos = async (req, res) => {
   try {
@@ -56,6 +64,10 @@ export const getAllVideos = async (req, res) => {
     res.status(500).json({ message: 'An error occurred while fetching videos.' });
   }
 };
+
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+// *                           GET SINGLE VIDEO CONTROLLER                           * //
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
 
 export const getSingleVideo = async (req, res) => {
   const { videoId } = req.params;

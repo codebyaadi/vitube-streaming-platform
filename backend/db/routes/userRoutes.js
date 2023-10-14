@@ -24,6 +24,10 @@ router.post("/v1/login", logIn)
 
 router.patch("/v1/update-profile", upload.single('image'), updateUser)
 
+// // // // // // // // // // // // // // // // // // // // // // // // // // //
+// *                           VERIFY EMAIL ROUTE                           * //
+// // // // // // // // // // // // // // // // // // // // // // // // // // //
+
 router.post("/v1/verify-email", verifyOtp)
 
 export default router;
