@@ -7,7 +7,6 @@ import VideoUpload from "../components/forms/upload";
 
 const Dashboard = () => {
   const user = useUserInfoFromToken();
-  console.log("Dashboard", user.userId);
   
   return (
     <div>

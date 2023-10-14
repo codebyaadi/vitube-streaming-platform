@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import SignUp from "../auth/signup";
-import LogIn from "../auth/login";
 import Cookies from "js-cookies";
 import { useNavigate, Link } from "react-router-dom";
 import useUserInfoFromToken from "../../hooks/userinfo";
@@ -8,7 +6,6 @@ import { Menu } from "lucide-react";
 import Sidebar from "./sidebar";
 
 const Navbar = () => {
-  const [logInToggle, setLogInToggle] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 

@@ -28,7 +28,7 @@ const VideoUpload = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileChange = (e) => {
+  const handleVideoChange = (e) => {
     const file = e.target.files[0];
     setVideo(file);
     setSelectedVideoName(file.name)
@@ -68,7 +68,7 @@ const VideoUpload = () => {
       console.error("Error uploading video:", error);
       setMsg(
         error.response?.data.message ||
-          "An error occurred while uploading the video."
+        "An error occurred while uploading the video."
       );
     }
   };
@@ -126,14 +126,6 @@ const VideoUpload = () => {
             <label className="text-sm" htmlFor="videoFile">
               Select Video
             </label>
-            {/* <input
-              className="w-full text-sm px-2 py-2.5 mt-2 rounded border border-[#3E3E3E] bg-[#1F1F1F] focus:outline-none"
-              type="file"
-              name="videoFile"
-              id="videoFile"
-              accept="video/*"
-              onChange={handleFileChange}
-            /> */}
             <div className="flex items-center justify-center w-full mt-2">
               <label
                 for="videoFile"
@@ -170,7 +162,7 @@ const VideoUpload = () => {
                   className="hidden"
                   name="videoFile"
                   accept="video/*"
-                  onChange={handleFileChange}
+                  onChange={handleVideoChange}
                 />
               </label>
             </div>
@@ -180,14 +172,6 @@ const VideoUpload = () => {
             <label className="text-sm" htmlFor="videoFile">
               Select Thumbnail
             </label>
-            {/* <input
-              className="w-full text-sm px-2 py-2.5 mt-2 rounded border border-[#3E3E3E] bg-[#1F1F1F] focus:outline-none"
-              type="file"
-              name="imageFile"
-              id="imageFile"
-              accept="image"
-              onChange={handleImageChange}
-            /> */}
             <div className="flex items-center justify-center w-full mt-2">
               <label
                 for="imageFile"
