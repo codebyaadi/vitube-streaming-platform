@@ -10,13 +10,9 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: [
-    'https://vitube-streaming-platform.vercel.app',
-    'http://localhost:5173',
-  ],
+  origin: 'https://vitube-streaming-platform.vercel.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
-  optionsSuccessStatus: 204, // Some legacy browsers choke on 204
 }));
 
 app.use(express.json());
