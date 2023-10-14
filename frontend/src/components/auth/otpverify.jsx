@@ -1,4 +1,4 @@
-import { X, AlertCircle } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { useState } from "react";
 import api from "../../api/base/config";
 

@@ -3,7 +3,7 @@ import useUserInfoFromToken from "../../hooks/userinfo";
 import api from "../../api/base/config";
 import uploadVideo from "../../api/cloudinary/uploadVideo";
 import uploadImage from "../../api/cloudinary/uploadImage";
-import SelectBar from "../micro/selection-bar";
+import SelectBar from "../micro/selectionbar";
 
 const VideoUpload = () => {
   const user = useUserInfoFromToken();

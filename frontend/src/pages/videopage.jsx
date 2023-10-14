@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
-import VideoCard from "../components/layout/video-card";
+import VideoCard from "../components/layout/videocard";
 import api from "../api/base/config";
 import VideoPageSkeleton from "../components/loading/VideoPageSkeleton";
 

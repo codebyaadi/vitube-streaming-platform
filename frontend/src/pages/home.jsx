@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import VideoCard from "../components/layout/video-card";
+import VideoCard from "../components/layout/videocard";
 import api from "../api/base/config";
 import HomeSkeleton from "../components/loading/HomeSkeleton";
 
