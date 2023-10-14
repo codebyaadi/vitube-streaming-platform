@@ -28,7 +28,7 @@ const OtpVerify = () => {
 
   return (
     <div className=" bg-black/60 w-full h-full">
-      <div className="w-[22rem] md:w-1/2 lg:w-1/3 bg-[#282828] border border-[#3E3E3E] left-1/2 transform -translate-x-1/2 py-6 md:py-8 lg:py-16 px-8 rounded-sm flex flex-col gap-2 font-prompt">
+      <div className="w-[22rem] md:w-1/2 lg:w-1/3 absolute bg-[#282828] border border-[#3E3E3E] left-1/2 transform -translate-x-1/2 py-6 md:py-8 lg:py-16 px-8 rounded-sm flex flex-col gap-2 font-prompt">
         {isVerified ? (
           <div className="flex justify-center items-center">{msg}</div>
         ) : (
