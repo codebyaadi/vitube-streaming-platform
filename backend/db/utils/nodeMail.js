@@ -16,7 +16,7 @@ const nodeMailer = async ({ userEmail }) => {
     });
 
     const mailOptions = {
-        from: "ayanokojikiyo@outlook.com",
+        from: process.env.NODEMAIL_USER,
         to: userEmail, // Remove the curly braces
         subject: "Verify OTP",
         text: `Your verification code is ${otp}`,
