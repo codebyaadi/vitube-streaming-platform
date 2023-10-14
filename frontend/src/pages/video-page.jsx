@@ -5,6 +5,7 @@ import ReactPlayer from "react-player";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import VideoCard from "../components/layout/video-card";
 import api from "../api/base/config";
+import VideoPageSkeleton from "../components/loading/VideoPageSkeleton";
 
 const VideoPage = () => {
   const { videoId } = useParams(); // Get the videoId from the route parameter
@@ -36,7 +37,7 @@ const VideoPage = () => {
   }, [videoId]);
 
   if (!video) {
-    return <div>Loading...</div>;
+    return <VideoPageSkeleton />
   }
 
   return (
