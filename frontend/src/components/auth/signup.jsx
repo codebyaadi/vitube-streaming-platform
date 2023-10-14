@@ -22,16 +22,9 @@ const SignUp = () => {
 
     try {
       const response = await api.post("/signup", formData);
-
-      if (response.status === 201) {
-        // Signup was successful, you can perform any necessary actions here
         console.log("Signup successful");
         sessionStorage.setItem("email", formData.email);
         navigate("/verify-otp")
-      } else {
-        // Handle signup failure, e.g., display an error message to the user
-        console.error("Signup failed", error.response);
-      }
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
       setError(error.response?.data.message);
