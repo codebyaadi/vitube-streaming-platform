@@ -34,7 +34,6 @@ const LogIn = () => {
         console.log(decodedToken.userId)
         // Login was successful, you can perform any necessary actions here
         console.log('Login successful');
-        setLogInToggle(false);
         navigate(`/dashboard/${decodedToken.userId}`)
         window.location.reload();
       } else {
