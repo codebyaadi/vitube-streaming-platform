@@ -3,8 +3,7 @@ import bcrypt from "bcryptjs";
 import * as dotenv from "dotenv";
 import cloudinary from "cloudinary";
 import User from "../models/Users.js";
-import {nodeMailer} from "../utils/nodeMail.js"
-import generateOTP from "../utils/generateOtp.js"
+import nodeMailer from "../utils/nodeMail.js";
 
 dotenv.config();
 const secretKey = process.env.JWT_SECRET_KEY;
@@ -23,14 +22,12 @@ export const createUser = async (req, res) => {
     try {
         const { fullName, username, email, password } = req.body;
 
-        if (!fullName || !username || !email || !password) {
-            return res.status(400).json({ message: "Fill up all details" });
-        }
+        const existingUserEmail = await User.findOne({ email });
+        const existingUsername = await User.findOne({ username });
 
-        const [existingUserEmail, existingUsername] = await Promise.all([
-            User.findOne({ email }),
-            User.findOne({ username }),
-        ]);
+        if (!fullName || !username || !email || !password) {
+            return res.status(400).json({ message: "Fill up the all details" });
+        }
 
         if (existingUserEmail) {
             return res.status(400).json({ message: "Email is already registered." });
@@ -41,6 +38,7 @@ export const createUser = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
+
         const newUser = await User.create({
             fullName,
             username,
@@ -48,17 +46,13 @@ export const createUser = async (req, res) => {
             password: hashedPassword,
         });
 
-        const otp = generateOTP();
-        await nodeMailer({ userEmail: email, otp });
-
+        await nodeMailer({userEmail: email})
         return res.status(201).json({ success: true, data: newUser });
     } catch (error) {
         console.error("Error in user sign-up:", error);
         return res.status(500).json({ message: "Something went wrong" });
     }
 };
-
-export default createUser;
 
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 // *                         LOG IN CONTROLLER                           * //
