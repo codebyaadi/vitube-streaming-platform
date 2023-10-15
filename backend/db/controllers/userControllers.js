@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import * as dotenv from "dotenv";
 import cloudinary from "cloudinary";
 import User from "../models/Users.js";
-import nodeMailer from "../utils/nodeMail.js"
+import {nodeMailer} from "../utils/nodeMail.js"
 import generateOTP from "../utils/generateOtp.js"
 
 dotenv.config();
