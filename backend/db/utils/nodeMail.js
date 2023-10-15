@@ -1,12 +1,9 @@
 import nodemailer from "nodemailer";
-import User from "../../db/models/Users.js";
-import * as dotenv from "dotenv"
-import generateOTP from "./generateOtp.js"
+import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const nodeMailer = async ({ userEmail }) => {
-    const otp = generateOTP();
+export const nodeMailer = async ({ userEmail, otp }) => {
     const transporter = nodemailer.createTransport({
         service: "hotmail",
         auth: {
@@ -17,29 +14,15 @@ const nodeMailer = async ({ userEmail }) => {
 
     const mailOptions = {
         from: process.env.NODEMAIL_USER,
-        to: userEmail, // Remove the curly braces
+        to: userEmail,
         subject: "Verify OTP",
         text: `Your verification code is ${otp}`,
     };
 
     try {
-        // Send the email
         await transporter.sendMail(mailOptions);
-
-        // Save the OTP to the user document
-        const user = await User.findOne({ email: userEmail });
-
-        if (user) {
-            // Update the user document with the OTP
-            user.emailOTP = otp;
-            await user.save();
-        } else {
-            // Handle the case where the user with the provided email is not found
-            console.error("User not found for email:", userEmail);
-        }
     } catch (error) {
         console.error("Error sending email:", error);
+        throw error; // Re-throw the error to handle it in the caller.
     }
 };
-
-export default nodeMailer;
