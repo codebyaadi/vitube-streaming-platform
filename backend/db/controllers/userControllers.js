@@ -46,7 +46,7 @@ export const createUser = async (req, res) => {
             password: hashedPassword,
         });
 
-        await nodeMailer({userEmail: email})
+        // await nodeMailer({userEmail: email})
         return res.status(201).json({ success: true, data: newUser });
     } catch (error) {
         console.error("Error in user sign-up:", error);
