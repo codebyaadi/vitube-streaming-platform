@@ -8,6 +8,7 @@ import api from '../../api/base/config';
 const LogIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -19,7 +20,7 @@ const LogIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const response = await api.post('/login', userData);
       console.log(response);
@@ -44,6 +45,8 @@ const LogIn = () => {
       // Handle the error by displaying an error message to the user
       console.error('Error:', error.response?.data || error.message);
       setError(error.response.data.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -95,7 +98,9 @@ const LogIn = () => {
               </button>
             </div>
             <div className="bg-red-500 flex text-white font-normal  justify-center items-center w-full text-sm px-2 py-2.5 mt-4 rounded-sm">
-              <button className="w-full" type="submit">Log In</button>
+              <button className="w-full" type="submit">
+                {isLoading ? "Logging..." : "Log In"}
+              </button>
             </div>
           </div>
         </form>

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     username: "",
@@ -19,7 +20,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true)
     try {
       const response = await api.post("/signup", formData);
         console.log("Signup successful");
@@ -28,6 +29,8 @@ const SignUp = () => {
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
       setError(error.response?.data.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -120,7 +123,7 @@ const SignUp = () => {
                 </div>
                 <div className="bg-red-500 flex text-white font-normal  justify-center items-center w-full text-sm px-2 py-2.5 mt-4 rounded-sm">
                   <button className="w-full" type="submit">
-                    Sign Up
+                    {isLoading ? "Registering..." : "Sign UP"}
                   </button>
                 </div>
               </div>

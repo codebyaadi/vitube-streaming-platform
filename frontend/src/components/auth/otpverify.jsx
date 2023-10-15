@@ -7,10 +7,12 @@ const OtpVerify = () => {
   const [msg, setMsg] = useState();
   const [isVerified, setIsVerified] = useState(false);
   const [enteredOtp, setEnteredOtp] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const email = sessionStorage.getItem("email");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     console.log("Submit clicked");
     try {
       const response = await api.post("/verify-email", { email, enteredOtp });
@@ -23,6 +25,8 @@ const OtpVerify = () => {
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
       setError(error.response?.data.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -59,7 +63,7 @@ const OtpVerify = () => {
               </div>
               <div className="bg-red-500 flex text-white font-normal  justify-center items-center w-full text-sm px-2 py-2.5 mt-4 rounded-sm">
                 <button className="w-full" type="submit">
-                  Verify
+                {isLoading ? "Verifying..." : "Verify"}
                 </button>
               </div>
             </div>
