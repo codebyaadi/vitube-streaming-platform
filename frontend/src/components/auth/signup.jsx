@@ -26,6 +26,7 @@ const SignUp = () => {
         console.log("Signup successful");
         sessionStorage.setItem("email", formData.email);
         // navigate("/verify-otp")
+        navigate("/");
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
       setError(error.response?.data.message);
