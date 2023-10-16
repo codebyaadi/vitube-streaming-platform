@@ -17,6 +17,10 @@ const commentSchema = new mongoose.Schema({
     ref: 'Video',
     required: true,
   },
+  parentComment: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment', // Reference to the parent comment
+  },
   createdAt: {
     type: Date,
     default: Date.now,

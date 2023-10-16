@@ -35,7 +35,7 @@ const LogIn = () => {
         // Login was successful, you can perform any necessary actions here
         console.log('Login successful');
 
-        navigate(`/dashboard/${decodedToken.userId}`)
+        navigate(`/dashboard/${decodedToken.userId}/myvideos`)
         window.location.reload();
       } else {
         // Handle other success cases or provide error messages

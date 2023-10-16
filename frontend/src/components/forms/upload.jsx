@@ -10,8 +10,8 @@ const VideoUpload = () => {
 
   // State variables
   const [msg, setMsg] = useState("");
-  const [selectedVideoName, setSelectedVideoName] = useState("")
-  const [selectedImageName, setSelectedImageName] = useState("")
+  const [selectedVideoName, setSelectedVideoName] = useState("");
+  const [selectedImageName, setSelectedImageName] = useState("");
   const [video, setVideo] = useState(null);
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,9 @@ const VideoUpload = () => {
     const file = e.target.files[0];
     if (file.size > 25 * 1024 * 1024) {
       // If the file size is greater than 25MB (in bytes), show an alert
-      setMsg("Video size exceeds the maximum allowed (25MB). Please choose a smaller video file.");
+      setMsg(
+        "Video size exceeds the maximum allowed (25MB). Please choose a smaller video file."
+      );
     } else {
       setVideo(file);
       setSelectedVideoName(file.name);
@@ -41,7 +43,7 @@ const VideoUpload = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
-    setSelectedImageName(file.name)
+    setSelectedImageName(file.name);
   };
 
   const handleSubmit = async (e) => {
@@ -73,7 +75,7 @@ const VideoUpload = () => {
       console.error("Error uploading video:", error);
       setMsg(
         error.response?.data.message ||
-        "An error occurred while uploading the video."
+          "An error occurred while uploading the video."
       );
     }
   };
@@ -157,9 +159,11 @@ const VideoUpload = () => {
                     and drop
                   </p>
                   <p clasNames="text-xs text-gray-500 dark:text-gray-400">
-                  MP4 (Maximum 25MB for storage efficiency)
+                    MP4 (Maximum 25MB for storage efficiency)
                   </p>
-                  {selectedVideoName != "" && <SelectBar text={selectedVideoName} />}
+                  {selectedVideoName != "" && (
+                    <SelectBar text={selectedVideoName} />
+                  )}
                 </div>
                 <input
                   id="videoFile"
@@ -205,7 +209,9 @@ const VideoUpload = () => {
                   <p clasNames="text-xs text-gray-500 dark:text-gray-400">
                     SVG, PNG, JPG or GIF (MAX. 800x400px)
                   </p>
-                  {selectedImageName != "" && <SelectBar text={selectedImageName} />}
+                  {selectedImageName != "" && (
+                    <SelectBar text={selectedImageName} />
+                  )}
                 </div>
                 <input
                   id="imageFile"
