@@ -30,6 +30,6 @@ router.get("/v1/getSingleVideos/:videoId", getSingleVideo)
 // *                         GET ALL VIDEOS BY USER ROUTE                         *  //
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 
-router.get("/v1/getVideosByUser", getVideosByUser)
+router.get("/v1/getVideosByUser/:userId", getVideosByUser)
 
 export default router;

@@ -106,10 +106,17 @@ export const getSingleVideo = async (req, res) => {
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
 
 export const getVideosByUser = async (req, res) => {
-  const { userId } = req.body;
+  console.log('Incoming request:', req.params); // Log the entire request parameters
+  const { userId } = req.params;
+  console.log('Extracted userId:', userId);
 
   try {
-    const videos = await Video.find({ userId }); // Find all videos by the user with the provided userId
+    const videos = await Video.find({ uploadedBy: userId }).populate({
+      path: 'uploadedBy',
+      model: User,
+      select: "fullName username profilePicture"
+    });; // Find all videos by the user with the provided userId
+    
 
     if (!videos || videos.length === 0) {
       return res.status(404).json({ message: 'No videos found for this user.' });

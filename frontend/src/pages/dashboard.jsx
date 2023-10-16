@@ -11,7 +11,6 @@ const Dashboard = () => {
   
   return (
     <div>
-      <MyVideos />
       <Sidebar
         profile={user.profile}
         name={user.name}
@@ -21,6 +20,7 @@ const Dashboard = () => {
         visible="block"
       />
       <Routes>
+        <Route path="myvideos" element={<MyVideos />} />
         <Route path="settings" element={<Settings />} />
         <Route path="upload" element={<VideoUpload />} />
       </Routes>

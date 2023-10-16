@@ -45,7 +45,7 @@ export const createUser = async (req, res) => {
             email,
             password: hashedPassword,
         });
-
+        // Uncomment below line in for OTP Verification
         // await nodeMailer({userEmail: email})
         return res.status(201).json({ success: true, data: newUser });
     } catch (error) {

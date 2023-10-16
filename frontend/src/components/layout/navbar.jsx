@@ -21,7 +21,7 @@ const Navbar = () => {
   }, []); // Empty dependency array ensures this effect runs once
 
   const handleDashboard = () => {
-    navigate(`/dashboard/${user.userId}`);
+    navigate(`/dashboard/${user.userId}/myvideos`);
   };
 
   return (

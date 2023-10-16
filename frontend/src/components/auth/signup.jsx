@@ -25,8 +25,9 @@ const SignUp = () => {
       const response = await api.post("/signup", formData);
         console.log("Signup successful");
         sessionStorage.setItem("email", formData.email);
+        // Uncomment below line in for OTP Verification
         // navigate("/verify-otp")
-        navigate("/");
+        navigate("/"); // Comment this line after uncommenting above line
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
       setError(error.response?.data.message);
