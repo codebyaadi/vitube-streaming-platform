@@ -8,7 +8,7 @@ const SelectBar = ({text}) => {
         <circle cx="12" cy="12" r="10" className="fill-current text-green-500" />
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
       </svg>          
-      <span id="file-name" className="font-medium text-white">{text}</span>&nbsp;
+      <span id="file-name" className="font-medium text-white w-32 truncate">{text}</span>&nbsp;
     </div>
   </div>
   )

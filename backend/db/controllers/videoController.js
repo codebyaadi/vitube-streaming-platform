@@ -101,3 +101,31 @@ export const getSingleVideo = async (req, res) => {
     res.status(500).json({ message: 'An error occurred while fetching the video.' });
   }
 }
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+// *                           GET VIDEOS BY USER                           * //
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+
+export const getVideosByUser = async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    const videos = await Video.find({ userId }); // Find all videos by the user with the provided userId
+
+    if (!videos || videos.length === 0) {
+      return res.status(404).json({ message: 'No videos found for this user.' });
+    }
+
+    // Calculate uploadedAgo for each video
+    const currentTime = new Date();
+    videos.forEach((video) => {
+      const createdAt = video.createdAt;
+      const timeDiff = currentTime - createdAt;
+      video.uploadedAgo = calculateUploadedTime(timeDiff); // You need to define the `calculateUploadedTime` function
+    });
+
+    res.status(200).json(videos);
+  } catch (error) {
+    console.error('Error fetching videos by user ID:', error);
+    res.status(500).json({ message: 'An error occurred while fetching the videos.' });
+  }
+}

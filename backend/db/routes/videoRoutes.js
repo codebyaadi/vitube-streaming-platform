@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { getAllVideos, getSingleVideo, uploadVideo } from "../controllers/videoController.js";
+import { getAllVideos, getSingleVideo, getVideosByUser, uploadVideo } from "../controllers/videoController.js";
 
 const router = express.Router();
 
@@ -25,5 +25,11 @@ router.get("/v1/getAllVideos", getAllVideos)
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 
 router.get("/v1/getSingleVideos/:videoId", getSingleVideo)
+
+// // // // // // // // // // // // // // // // // // // // // // // // // //
+// *                         GET ALL VIDEOS BY USER ROUTE                         *  //
+// // // // // // // // // // // // // // // // // // // // // // // // // //
+
+router.get("/v1/getVideosByUser", getVideosByUser)
 
 export default router;

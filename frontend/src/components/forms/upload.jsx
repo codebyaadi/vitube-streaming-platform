@@ -30,8 +30,13 @@ const VideoUpload = () => {
 
   const handleVideoChange = (e) => {
     const file = e.target.files[0];
-    setVideo(file);
-    setSelectedVideoName(file.name)
+    if (file.size > 25 * 1024 * 1024) {
+      // If the file size is greater than 25MB (in bytes), show an alert
+      setMsg("Video size exceeds the maximum allowed (25MB). Please choose a smaller video file.");
+    } else {
+      setVideo(file);
+      setSelectedVideoName(file.name);
+    }
   };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -152,7 +157,7 @@ const VideoUpload = () => {
                     and drop
                   </p>
                   <p clasNames="text-xs text-gray-500 dark:text-gray-400">
-                    SVG, PNG, JPG or GIF (MAX. 800x400px)
+                  MP4 (Maximum 25MB for storage efficiency)
                   </p>
                   {selectedVideoName != "" && <SelectBar text={selectedVideoName} />}
                 </div>
