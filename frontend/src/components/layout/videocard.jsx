@@ -12,7 +12,9 @@ const VideoCard = ({
   return (
     <div className="bg-[#282828] border border-[#3E3E3E] w-full lg:w-72 md:w-80 p-2">
       <div id="image-container" className="w-full h-32 overflow-hidden">
+        <Link to = {`/video/${videoId}`}>
         <img className="w-full object-cover" src={thumbnailUrl} alt={title} />
+        </Link>
       </div>
       <div className="w-full flex flex-col gap-2 justify-start items-start mt-2 font-prompt">
         <div className="flex flex-row flex-auto gap-2 justify-between items-center">
