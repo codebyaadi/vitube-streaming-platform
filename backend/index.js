@@ -4,6 +4,7 @@ import connectDB from "./db/config/connect.js";
 import cors from "cors";
 import userRoutes from "./db/routes/userRoutes.js";
 import videoRoutes from "./db/routes/videoRoutes.js";
+import commentRoutes from "./db/routes/commentRoutes.js"
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use(express.json());
 
 app.use("/api", userRoutes);
 app.use("/api", videoRoutes);
+app.use("/api", commentRoutes)
 
 app.get("/", (req, res) => {
   res.status(200).json({

@@ -21,12 +21,16 @@ const commentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment', // Reference to the parent comment
   },
+  replies: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment',
+  }],
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-const Comment = mongoose.model('Comment', commentSchema);
+const Comment = mongoose.model('Comment', commentSchema, "Comments");
 
 export default Comment;
