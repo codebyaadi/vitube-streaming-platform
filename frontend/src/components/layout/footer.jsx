@@ -3,13 +3,13 @@ import { Github } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 
 const Footer = () => {
-    const [commit, setCommit] = useState();
+    const [stars, setStars] = useState();
 
     useEffect(() => {
         axios.get("https://api.github.com/repos/codebyaadi/vitube-streaming-platform")
             .then((response) => {
-                const total_commits = response.data.commits_url
-                setCommit(total_commits.length)
+                const total_stars = response.data.stargazers_count
+                setStars(total_stars)
             })
     }, [])
   return (
@@ -19,7 +19,7 @@ const Footer = () => {
         </div>
         <a href="https://github.com/codebyaadi/vitube-streaming-platform" target="_blank" className="bg-[#1F1F1F] flex justify-center items-center px-3 py-2 rounded-sm">
             <Github size={"16"} />
-            <span className="ml-2 text-sm font-prompt">{commit} Commits</span>
+            <span className="ml-2 text-sm font-prompt">{stars} GitHub Stars</span>
         </a>
     </footer>
   )

@@ -15,7 +15,7 @@ import Footer from "./components/layout/footer";
 function App() {
   return (
     <>
-    <div id="main">
+    <div id="main" className="min-h-screen">
       <div className="mt-[4.5rem] md:mt-16 lg:mt-20">
         <BrowserRouter>
           <Toaster position="bottom-right" theme="dark" />
