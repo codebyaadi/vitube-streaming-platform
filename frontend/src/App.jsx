@@ -10,26 +10,33 @@ import OtpVerify from "./components/auth/otpverify";
 import SignUp from "./components/auth/signup";
 import LogIn from "./components/auth/login";
 import HomeSkeleton from "./components/loading/HomeSkeleton";
+import Footer from "./components/layout/footer";
 
 function App() {
   return (
-    <div className="mt-[4.5rem] md:mt-16 lg:mt-20">
-      <BrowserRouter>
-      <Toaster position="bottom-right" theme="dark" />
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/skeleton" element={<HomeSkeleton />} />
-          <Route path="/register" element={<SignUp />} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/verify-otp" element={<OtpVerify />} />
-          <Route path="/video/:videoId" element={<VideoPage />} />
-          <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard/:userId/*" element={<Dashboard />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+    <>
+    <div id="main">
+      <div className="mt-[4.5rem] md:mt-16 lg:mt-20">
+        <BrowserRouter>
+          <Toaster position="bottom-right" theme="dark" />
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/skeleton" element={<HomeSkeleton />} />
+            <Route path="/register" element={<SignUp />} />
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/verify-otp" element={<OtpVerify />} />
+            <Route path="/video/:videoId" element={<VideoPage />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/dashboard/:userId/*" element={<Dashboard />} />
+            </Route>
+          </Routes>
+          
+        </BrowserRouter>
+      </div>
     </div>
+    <Footer />
+    </>
   );
 }
 
