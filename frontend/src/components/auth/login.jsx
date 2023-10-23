@@ -4,6 +4,7 @@ import Cookies from 'js-cookies';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import api from '../../api/base/config';
+import { toast } from 'sonner';
 
 const LogIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,17 +35,20 @@ const LogIn = () => {
         console.log(decodedToken.userId)
         // Login was successful, you can perform any necessary actions here
         console.log('Login successful');
+        toast.success("Login Successfully")
 
         navigate(`/dashboard/${decodedToken.userId}/myvideos`)
         window.location.reload();
       } else {
         // Handle other success cases or provide error messages
         console.log('Login failed');
+        toast.error("Log In Failed")
       }
     } catch (error) {
       // Handle the error by displaying an error message to the user
       console.error('Error:', error.response?.data || error.message);
       setError(error.response.data.message);
+      toast.error(error.response.data.message)
     } finally {
       setIsLoading(false);
     }

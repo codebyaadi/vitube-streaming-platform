@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Toaster } from "sonner"
 import Navbar from "./components/layout/navbar";
 import Home from "./pages/home";
 import Dashboard from "./pages/dashboard";
@@ -14,6 +15,7 @@ function App() {
   return (
     <div className="mt-[4.5rem] md:mt-16 lg:mt-20">
       <BrowserRouter>
+      <Toaster position="bottom-right" theme="dark" />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

@@ -4,6 +4,7 @@ import api from "../../api/base/config";
 import uploadVideo from "../../api/cloudinary/uploadVideo";
 import uploadImage from "../../api/cloudinary/uploadImage";
 import SelectBar from "../micro/selectionbar";
+import { toast } from "sonner";
 
 const VideoUpload = () => {
   const user = useUserInfoFromToken();
@@ -35,6 +36,7 @@ const VideoUpload = () => {
       setMsg(
         "Video size exceeds the maximum allowed (25MB). Please choose a smaller video file."
       );
+      toast.error("Video size exceeds the maximum allowed (25MB). Please choose a smaller video file.")
     } else {
       setVideo(file);
       setSelectedVideoName(file.name);
@@ -51,6 +53,7 @@ const VideoUpload = () => {
 
     if (!video) {
       setMsg("Please select a video file!");
+      toast.error("Please select a video file!")
       return;
     }
 

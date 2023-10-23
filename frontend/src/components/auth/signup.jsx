@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Eye, EyeOff, X, AlertCircle } from "lucide-react";
 import api from "../../api/base/config";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +23,7 @@ const SignUp = () => {
     e.preventDefault();
     setIsLoading(true)
     try {
-      const response = await api.post("/signup", formData);
+      await api.post("/signup", formData);
         console.log("Signup successful");
         sessionStorage.setItem("email", formData.email);
         // Uncomment below line in for OTP Verification
@@ -31,6 +32,7 @@ const SignUp = () => {
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
       setError(error.response?.data.message);
+      toast.error(error.response?.data.message)
     } finally {
       setIsLoading(false);
     }
