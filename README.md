@@ -14,6 +14,7 @@ Vitube is a powerful video streaming platform built with React, Node.js, MongoDB
 - Database storage and management with MongoDB.
 - Responsive design and styling powered by Tailwind CSS.
 - Deployed on Vercel for easy accessibility.
+- Add Comments on Video and also other Users can Reply to comment.
 
 ## Installation
 
