@@ -6,6 +6,7 @@ import { ThumbsDown, ThumbsUp } from "lucide-react";
 import VideoCard from "../components/layout/videocard";
 import api from "../api/base/config";
 import VideoPageSkeleton from "../components/loading/VideoPageSkeleton";
+import CommentSection from "../components/forms/comment";
 
 const VideoPage = () => {
   const { videoId } = useParams(); // Get the videoId from the route parameter
@@ -91,7 +92,10 @@ const VideoPage = () => {
           </div>
           <div id="description" className="bg-[#282828] flex flex-col rounded p-2 my-2 m-0 lg:mr-4 mb-1">
             <span className="text-sm font-semibold text-gray-400">{video.uploadedAgo}</span>
-            {video.description}
+            <div>{video.description}</div>
+            <div id="comment-container">
+              <CommentSection videoId={videoId} />
+            </div>
           </div>
         </div>
       </div>
