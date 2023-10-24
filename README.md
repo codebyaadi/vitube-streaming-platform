@@ -91,6 +91,20 @@ The link of project hosted on Vercel. You can access it here: [![Vercel](https:/
 
 Contributions to Vitube are highly welcome! Whether you want to report a bug, request a feature, or submit code improvements, your contributions help make Vitube better for everyone.
 
+## Contributors
+
+Gratitude to these outstanding contributors for their valuable contributions:
+
+<p align="center">
+<a href="https://github.com/codebyaadi/vitube-streaming-platform/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=codebyaadi/vitube-streaming-platform" />
+</a>
+</p>
+
+<p align="center">
+ Made with <a rel="noopener noreferrer" target="_blank" href="https://contrib.rocks">contrib.rocks</a>
+</p>
+
 ## License
 
 Licensed under the MIT License. Check the [LICENSE](./LICENSE) file for details.
