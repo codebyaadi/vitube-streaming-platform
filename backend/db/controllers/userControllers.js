@@ -109,49 +109,55 @@ export const logIn = async (req, res) => {
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 
 export const updateUser = async (req, res) => {
-    try {
-      const { userId, username, name } = req.body;
-      const image = req.file;
-  
-      if (!image && username == null && name == null) {
-        return res.status(400).json({ message: 'At least one attribute (image, name, username) is required for an update.' });
-      }
-  
-      const user = await User.findById(userId);
-  
-      if (!user) {
-        return res.status(404).json({ message: "User not found." });
-      }
-  
-      if (username !== null) {
-        user.username = username;
-      }
-  
-      if (name !== null) {
-        user.fullName = name;
-      }
-  
-      if (image) {
-        // Convert the file buffer to a data URL
-        const dataUrl = `data:${image.mimetype};base64,${image.buffer.toString('base64')}`;
-        // Upload data URL to Cloudinary and get the image URL
-        const uploadedImage = await cloudinary.v2.uploader.upload(dataUrl);
-  
-        if (!uploadedImage.secure_url) {
-          return res.status(500).json({ message: 'Image upload failed.' });
-        }
-  
-        user.profilePicture = uploadedImage.secure_url;
-      }
-  
-      await user.save();
-  
-      return res.status(200).json({ message: "Changes updated successfully", data: user });
-    } catch (error) {
-      console.error("Error while updating profile:", error);
-      return res.status(500).json({ message: "Something went wrong." });
+  try {
+    const { userId, username, name } = req.body;
+    const image = req.file;
+
+    if (!image && ((username == null || username.trim() === '') && (name == null || name.trim() === ''))) {
+      return res.status(400).json({ message: 'At least one attribute (image, name, username) is required for an update.' });
     }
-  };  
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    if (username !== null && username.trim() !== '' && username !== 'null') {
+      // Check if the new username conflicts with an existing one
+      const existingUser = await User.findOne({ username: username });
+      if (existingUser && existingUser._id.toString() !== userId) {
+        return res.status(400).json({ message: "Username already exists." });
+      }
+      user.username = username;
+    }
+
+    if (name !== null) {
+      user.fullName = name;
+    }
+
+    if (image) {
+      // Convert the file buffer to a data URL
+      const dataUrl = `data:${image.mimetype};base64,${image.buffer.toString('base64')}`;
+      // Upload data URL to Cloudinary and get the image URL
+      const uploadedImage = await cloudinary.v2.uploader.upload(dataUrl);
+
+      if (!uploadedImage.secure_url) {
+        return res.status(500).json({ message: 'Image upload failed.' });
+      }
+
+      user.profilePicture = uploadedImage.secure_url;
+    }
+
+    await user.save();
+
+    return res.status(200).json({ message: "Changes updated successfully", data: user });
+  } catch (error) {
+    console.error("Error while updating profile:", error);
+    return res.status(500).json({ message: "Something went wrong." });
+  }
+};
+ 
 
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 // *                       VERIFY OTP CONTROLLER                         * //
