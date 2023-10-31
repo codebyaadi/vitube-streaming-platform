@@ -113,21 +113,17 @@ export const updateUser = async (req, res) => {
       const { userId, username, name } = req.body;
       const image = req.file;
   
-      if (!image && username == null && name == null) {
-        return res.status(400).json({ message: 'At least one attribute (image, name, username) is required for an update.' });
-      }
-  
       const user = await User.findById(userId);
   
       if (!user) {
         return res.status(404).json({ message: "User not found." });
       }
   
-      if (username !== null) {
+      if (username !== null || username !== undefined) {
         user.username = username;
       }
   
-      if (name !== null) {
+      if (name !== null || name !== undefined) {
         user.fullName = name;
       }
   
@@ -151,7 +147,7 @@ export const updateUser = async (req, res) => {
       console.error("Error while updating profile:", error);
       return res.status(500).json({ message: "Something went wrong." });
     }
-  };  
+  };
 
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 // *                       VERIFY OTP CONTROLLER                         * //
