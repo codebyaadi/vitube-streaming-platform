@@ -11,7 +11,7 @@ import SignUp from "./components/auth/signup";
 import LogIn from "./components/auth/login";
 import HomeSkeleton from "./components/loading/HomeSkeleton";
 import Footer from "./components/layout/footer";
-
+// Just a Comment
 function App() {
   return (
     <>
