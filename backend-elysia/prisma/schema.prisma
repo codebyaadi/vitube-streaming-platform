@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Comments {
+  id              String     @id @default(auto()) @map("_id") @db.ObjectId
+  text            String
+  postedBy        Users      @relation(fields: [postedById], references: [id])
+  postedById      String     @db.ObjectId
+  video           Videos     @relation(fields: [videoId], references: [id])
+  videoId         String     @db.ObjectId
+  parentComment   Comments?  @relation("CommentReplies", fields: [parentCommentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parentCommentId String?    @db.ObjectId
+  replies         Comments[] @relation("CommentReplies")
+  createdAt       DateTime   @default(now())
+}
+
+model Users {
+  id              String     @id @default(auto()) @map("_id") @db.ObjectId
+  v               Int        @map("__v")
+  fullName        String
+  username        String     @unique(map: "username_1")
+  email           String     @unique(map: "email_1")
+  password        String
+  profilePicture  String
+  emailOTP        String?
+  isEmailVerified Boolean    @default(false)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  videos          Videos[]
+  comments        Comments[]
+}
+
+model Videos {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  v            Int        @map("__v")
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  title        String
+  description  String
+  uploadedById String     @db.ObjectId
+  uploadedBy   Users      @relation(fields: [uploadedById], references: [id])
+  videoUrl     String
+  comments     Comments[]
+  likes        Int
+  views        Int
+  uploadedAgo  String
+  thumbnailUrl String
+  createdAt    DateTime   @db.Date
+  updatedAt    DateTime   @db.Date
+}
