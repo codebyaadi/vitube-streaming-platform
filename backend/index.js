@@ -1,10 +1,10 @@
 import * as dotenv from "dotenv";
 import express from "express";
-import connectDB from "./db/config/connect.js";
+import connectDB from "./src/config/connect.js";
 import cors from "cors";
-import userRoutes from "./db/routes/userRoutes.js";
-import videoRoutes from "./db/routes/videoRoutes.js";
-import commentRoutes from "./db/routes/commentRoutes.js"
+import userRoutes from "./src/routes/userRoutes.js";
+import videoRoutes from "./src/routes/videoRoutes.js";
+import commentRoutes from "./src/routes/commentRoutes.js"
 
 dotenv.config();
 

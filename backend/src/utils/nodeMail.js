@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import User from "../../db/models/Users.js";
+import User from "../../src/models/Users.js";
 import * as dotenv from "dotenv"
 import generateOTP from "./generateOtp.js"
 
