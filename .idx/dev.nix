@@ -12,6 +12,7 @@
     pkgs.nodejs_20
     # pkgs.nodePackages.nodemon
     # pkgs.bun
+    pkgs.openssl
   ];
 
   # Sets environment variables in the workspace
