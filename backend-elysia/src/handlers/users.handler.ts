@@ -1,5 +1,5 @@
 import prisma from "@/lib/db";
-import Elysia, { t } from "elysia";
+import Elysia, { t } from "elysia"
 
 export const users = new Elysia().group('/user', (app) =>
     app.post(

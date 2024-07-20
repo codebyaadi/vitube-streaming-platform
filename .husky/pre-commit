@@ -1,1 +1,1 @@
-bun
+bunx prettier --write .
