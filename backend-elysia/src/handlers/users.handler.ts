@@ -31,10 +31,10 @@ export const users = new Elysia().group("/user", (app) =>
         },
         {
             body: t.Object({
-                fullname: t.String(),
-                username: t.String(),
-                email: t.String(),
-                password: t.String(),
+                        fullname: t.String(),
+                        username: t.String(),
+                        email: t.String(),
+                        password: t.String(),
             }),
         }
     )
