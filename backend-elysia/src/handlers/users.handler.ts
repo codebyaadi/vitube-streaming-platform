@@ -1,7 +1,7 @@
 import prisma from "@/lib/db";
 import Elysia, { t } from "elysia";
 
-export const users = new Elysia().group("/user", (app) =>
+export const users = new Elysia().group('/user', (app) =>
     app.post(
         "/signup",
         async ({ body, set }) => {
@@ -34,7 +34,7 @@ export const users = new Elysia().group("/user", (app) =>
                         fullname: t.String(),
                         username: t.String(),
                         email: t.String(),
-                        password: t.String(),
+                        password: t.String()
             }),
         }
     )

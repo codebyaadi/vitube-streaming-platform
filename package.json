@@ -1,7 +1,8 @@
 {
   "scripts": {
     "format:check": "prettier --check .",
-    "format:write": "prettier --write ."
+    "format:write": "prettier --write .",
+    "prepare": "husky"
   },
   "husky": {
     "hooks": {
