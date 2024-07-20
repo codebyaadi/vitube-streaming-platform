@@ -3,6 +3,11 @@
     "format:check": "prettier --check .",
     "format:write": "prettier --write ."
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "format:write"
+    }
+  },
   "dependencies": {},
   "devDependencies": {
     "husky": "^9.1.1",
