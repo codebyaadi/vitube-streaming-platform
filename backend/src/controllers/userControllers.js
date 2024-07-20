@@ -12,7 +12,7 @@ cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
+});
 
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 // *                         SIGN UP CONTROLLER                          * //
@@ -30,11 +30,15 @@ export const createUser = async (req, res) => {
         }
 
         if (existingUserEmail) {
-            return res.status(400).json({ message: "Email is already registered." });
+            return res
+                .status(400)
+                .json({ message: "Email is already registered." });
         }
 
         if (existingUsername) {
-            return res.status(400).json({ message: "Username already exists." });
+            return res
+                .status(400)
+                .json({ message: "Username already exists." });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -95,9 +99,11 @@ export const logIn = async (req, res) => {
             maxAge: 3600000, // 1 hour expiration time
         });
 
-        return res
-            .status(200)
-            .json({ message: "Successfully logged in...", success: true, token });
+        return res.status(200).json({
+            message: "Successfully logged in...",
+            success: true,
+            token,
+        });
     } catch (error) {
         console.error("Error while login:", error);
         return res.status(500).json({ message: "Something went wrong" });
@@ -110,45 +116,48 @@ export const logIn = async (req, res) => {
 
 export const updateUser = async (req, res) => {
     try {
-      const { userId, username, name } = req.body;
-      const image = req.file;
-  
-      const user = await User.findById(userId);
-  
-      if (!user) {
-        return res.status(404).json({ message: "User not found." });
-      }
-  
-      if (username !== null || username !== undefined) {
-        user.username = username;
-      }
-  
-      if (name !== null || name !== undefined) {
-        user.fullName = name;
-      }
-  
-      if (image) {
-        // Convert the file buffer to a data URL
-        const dataUrl = `data:${image.mimetype};base64,${image.buffer.toString('base64')}`;
-        // Upload data URL to Cloudinary and get the image URL
-        const uploadedImage = await cloudinary.v2.uploader.upload(dataUrl);
-  
-        if (!uploadedImage.secure_url) {
-          return res.status(500).json({ message: 'Image upload failed.' });
-        }
-  
-        user.profilePicture = uploadedImage.secure_url;
-      }
-  
-      await user.save();
-  
-      return res.status(200).json({ message: "Changes updated successfully", data: user });
-    } catch (error) {
-      console.error("Error while updating profile:", error);
-      return res.status(500).json({ message: "Something went wrong." });
-    }
-  };
+        const { userId, username, name } = req.body;
+        const image = req.file;
 
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        if (username !== null || username !== undefined) {
+            user.username = username;
+        }
+
+        if (name !== null || name !== undefined) {
+            user.fullName = name;
+        }
+
+        if (image) {
+            // Convert the file buffer to a data URL
+            const dataUrl = `data:${image.mimetype};base64,${image.buffer.toString("base64")}`;
+            // Upload data URL to Cloudinary and get the image URL
+            const uploadedImage = await cloudinary.v2.uploader.upload(dataUrl);
+
+            if (!uploadedImage.secure_url) {
+                return res
+                    .status(500)
+                    .json({ message: "Image upload failed." });
+            }
+
+            user.profilePicture = uploadedImage.secure_url;
+        }
+
+        await user.save();
+
+        return res
+            .status(200)
+            .json({ message: "Changes updated successfully", data: user });
+    } catch (error) {
+        console.error("Error while updating profile:", error);
+        return res.status(500).json({ message: "Something went wrong." });
+    }
+};
 
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 // *                       VERIFY OTP CONTROLLER                         * //
@@ -162,14 +171,16 @@ export const verifyOtp = async (req, res) => {
 
         const user = await User.findOne({ email });
 
-        if (!user) { // Check if user is not found, not email
+        if (!user) {
+            // Check if user is not found, not email
             return res.status(404).json({ message: "User not found" });
         }
 
         const otp = user.emailOTP;
-        console.log(otp)
+        console.log(otp);
 
-        if (enteredOtp == otp) { // Use strict equality (===) for comparison
+        if (enteredOtp == otp) {
+            // Use strict equality (===) for comparison
             user.isEmailVerified = true;
             await user.save(); // Save the user with the updated email verification status
             return res.status(200).json({ message: "Email is verified." });

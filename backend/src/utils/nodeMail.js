@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import User from "../../src/models/Users.js";
-import * as dotenv from "dotenv"
-import generateOTP from "./generateOtp.js"
+import * as dotenv from "dotenv";
+import generateOTP from "./generateOtp.js";
 
 dotenv.config();
 

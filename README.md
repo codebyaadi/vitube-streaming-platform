@@ -4,17 +4,16 @@ Vitube is a powerful video streaming platform built with React, Node.js, MongoDB
 
 ![screenshot-vitube-streaming-platform-ishptqtyj-codebyaadi vercel app-2023 10 14-13_00_46](https://github.com/codebyaadi/vitube-streaming-platform/assets/100792725/dd7c9829-5e47-421e-b998-8469419a5751)
 
-
 ## Features
 
-- User-friendly interface for uploading and watching videos.
-- OTP (One-Time Password) verification for secure user access.
-- Fast and efficient video streaming with ReactPlayer.
-- Storage of video and image assets using Cloudinary.
-- Database storage and management with MongoDB.
-- Responsive design and styling powered by Tailwind CSS.
-- Deployed on Vercel for easy accessibility.
-- Add Comments on Video and also other Users can Reply to comment.
+-   User-friendly interface for uploading and watching videos.
+-   OTP (One-Time Password) verification for secure user access.
+-   Fast and efficient video streaming with ReactPlayer.
+-   Storage of video and image assets using Cloudinary.
+-   Database storage and management with MongoDB.
+-   Responsive design and styling powered by Tailwind CSS.
+-   Deployed on Vercel for easy accessibility.
+-   Add Comments on Video and also other Users can Reply to comment.
 
 ## Installation
 
@@ -25,6 +24,7 @@ git clone https://github.com/codebyaadi/vitube-streaming-platform
 ```
 
 ### 2. Change directory to **backend**
+
 After opening the project
 
 ```bash
@@ -36,7 +36,9 @@ cd backend
 ```bash
 pnpm install
 ```
+
 or
+
 ```bash
 npm install
 ```
@@ -50,7 +52,9 @@ Create a `.env` file in the root directory and add the environment variables as 
 ```bash
 pnpm start
 ```
+
 or
+
 ```bash
 npm start
 ```
@@ -60,11 +64,15 @@ npm start
 ```bash
 cd frontend
 ```
+
 ### 7. Install **frontend** dependencies
+
 ```bash
 pnpm install
 ```
+
 or
+
 ```bash
 npm install
 ```
@@ -74,10 +82,13 @@ npm install
 Create a `.env` file in the root directory and add the environment variables as shown in the `.env.example` file in frontend.
 
 ### 9. Start the application
+
 ```bash
 pnpm run dev
 ```
+
 or
+
 ```bash
 npm run dev
 ```

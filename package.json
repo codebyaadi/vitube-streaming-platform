@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "husky": "^9.1.1",
+    "prettier": "^3.3.3"
+  }
+}

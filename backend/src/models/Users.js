@@ -25,7 +25,8 @@ const userSchema = new mongoose.Schema({
     },
     profilePicture: {
         type: String, // You can use a String to store the URL or file path of the profile picture.
-        default: "https://res.cloudinary.com/dqcejxdbf/image/upload/v1697359687/ue9ebtgk0csombrozfqn.jpg", // You can set a default profile picture if none is provided.
+        default:
+            "https://res.cloudinary.com/dqcejxdbf/image/upload/v1697359687/ue9ebtgk0csombrozfqn.jpg", // You can set a default profile picture if none is provided.
     },
     emailOTP: {
         type: String, // Store the OTP for email verification

@@ -17,9 +17,7 @@ const VideoPageSkeleton = () => {
                             className="flex justify-start content-center items-center"
                         >
                             <div className="block">
-                                <div
-                                    className="bg-[#3E3E3E] w-10 h-10  rounded-full"
-                                ></div>
+                                <div className="bg-[#3E3E3E] w-10 h-10  rounded-full"></div>
                             </div>
                             <div className="h-10 flex flex-col justify-center ml-4 leading-none">
                                 <div className="w-20 h-4" />
@@ -35,15 +33,34 @@ const VideoPageSkeleton = () => {
                             <div className="bg-[#3E3E3E] w-6 h-6" />
                         </div>
                     </div>
-                    <div id="description" className="bg-[#282828] flex flex-col rounded p-2 my-2 m-0 lg:mr-4 mb-1">
-                        <div className="w-full h-4" width={"100%"} height={16} style={{ minHeight: "16px" }} />
-                        <div className="w-full h-24" width={"100%"} height={100} style={{ minHeight: "100px" }} />
+                    <div
+                        id="description"
+                        className="bg-[#282828] flex flex-col rounded p-2 my-2 m-0 lg:mr-4 mb-1"
+                    >
+                        <div
+                            className="w-full h-4"
+                            width={"100%"}
+                            height={16}
+                            style={{ minHeight: "16px" }}
+                        />
+                        <div
+                            className="w-full h-24"
+                            width={"100%"}
+                            height={100}
+                            style={{ minHeight: "100px" }}
+                        />
                     </div>
                 </div>
             </div>
-            <div id="suggest-video" className="flex flex-col md:flex-row lg:flex-col gap-2 flex-wrap justify-center my-2">
+            <div
+                id="suggest-video"
+                className="flex flex-col md:flex-row lg:flex-col gap-2 flex-wrap justify-center my-2"
+            >
                 {Array.from({ length: 6 }).map((_, index) => (
-                    <div className="bg-[#282828] border border-[#3E3E3E] w-full lg:w-72 md:w-80 p-2" key={index}>
+                    <div
+                        className="bg-[#282828] border border-[#3E3E3E] w-full lg:w-72 md:w-80 p-2"
+                        key={index}
+                    >
                         <div className="w-full h-32 bg-[#3E3E3E]"></div>
                         <div className="w-full flex flex-col gap-2 justify-start items-start mt-2 font-prompt">
                             <div className="flex flex-row flex-auto gap-2 justify-between items-center">

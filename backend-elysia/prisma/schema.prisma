@@ -8,48 +8,42 @@ datasource db {
 }
 
 model Comments {
-  id              String     @id @default(auto()) @map("_id") @db.ObjectId
-  text            String
-  postedBy        Users      @relation(fields: [postedById], references: [id])
-  postedById      String     @db.ObjectId
-  video           Videos     @relation(fields: [videoId], references: [id])
-  videoId         String     @db.ObjectId
-  parentComment   Comments?  @relation("CommentReplies", fields: [parentCommentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  parentCommentId String?    @db.ObjectId
-  replies         Comments[] @relation("CommentReplies")
-  createdAt       DateTime   @default(now())
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  v             Int      @map("__v")
+  createdAt     DateTime @db.Date
+  parentComment String?  @db.ObjectId
+  postedBy      String   @db.ObjectId
+  replies       String[]
+  text          String
+  video         String   @db.ObjectId
 }
 
 model Users {
-  id              String     @id @default(auto()) @map("_id") @db.ObjectId
-  v               Int        @map("__v")
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  v               Int      @map("__v")
+  createdAt       DateTime @db.Date
+  email           String   @unique(map: "email_1")
+  emailOTP        String?
   fullName        String
-  username        String     @unique(map: "username_1")
-  email           String     @unique(map: "email_1")
+  isEmailVerified Boolean
   password        String
   profilePicture  String
-  emailOTP        String?
-  isEmailVerified Boolean    @default(false)
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-  videos          Videos[]
-  comments        Comments[]
+  updatedAt       DateTime @db.Date
+  username        String   @unique(map: "username_1")
 }
 
 model Videos {
-  id           String     @id @default(auto()) @map("_id") @db.ObjectId
-  v            Int        @map("__v")
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  v            Int      @map("__v")
   /// Could not determine type: the field only had null or empty values in the sample set.
-  title        String
+  comments     Json?
+  createdAt    DateTime @db.Date
   description  String
-  uploadedById String     @db.ObjectId
-  uploadedBy   Users      @relation(fields: [uploadedById], references: [id])
-  videoUrl     String
-  comments     Comments[]
   likes        Int
-  views        Int
-  uploadedAgo  String
   thumbnailUrl String
-  createdAt    DateTime   @db.Date
-  updatedAt    DateTime   @db.Date
+  title        String
+  updatedAt    DateTime @db.Date
+  uploadedBy   String   @db.ObjectId
+  videoUrl     String
+  views        Int
 }
