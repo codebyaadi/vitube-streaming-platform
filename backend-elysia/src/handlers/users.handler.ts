@@ -74,7 +74,7 @@ export const users = new Elysia().use(cookie()).group("/user", (app) =>
                         maxLength: 20,
                     }),
                     email: t.String({
-                        format: "email"
+                        format: "email",
                     }),
                     password: t.String(),
                 }),
