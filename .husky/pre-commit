@@ -1,1 +1,2 @@
 bunx prettier --write .
+git add .
