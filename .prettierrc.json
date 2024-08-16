@@ -1,5 +1,16 @@
 {
     "trailingComma": "es5",
     "tabWidth": 4,
-    "semi": true
+    "semi": true,
+    "overrides": [
+        {
+            "files": "*.prisma",
+            "options": {
+                "tabWidth": 2,
+                "useTabs": false,
+                "trailingComma": "none",
+                "semi": false
+            }
+        }
+    ]
 }
