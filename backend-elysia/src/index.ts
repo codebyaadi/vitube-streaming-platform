@@ -1,5 +1,5 @@
 import { Elysia } from "elysia";
-import { users } from "./handlers/users.handler";
+import { users } from "@/handlers/users.handler";
 
 const app = new Elysia()
     .get("/", () => "Hello Elysia + Vitube")
