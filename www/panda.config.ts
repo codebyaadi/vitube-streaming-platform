@@ -1,11 +1,19 @@
 import { defineConfig } from "@pandacss/dev";
+import { createPreset } from "@park-ui/panda-preset";
 
 export default defineConfig({
     // Whether to use css reset
     preflight: true,
 
     // presets
-    presets: ["@pandacss/preset-base", "@park-ui/panda-preset"],
+    presets: [
+        "@pandacss/preset-base",
+        createPreset({
+            accentColor: "red",
+            grayColor: "neutral",
+            borderRadius: "sm",
+        }),
+    ],
 
     // Where to look for your css declarations
     include: ["./src/**/*.{js,jsx,ts,tsx}", "./pages/**/*.{js,jsx,ts,tsx}"],
