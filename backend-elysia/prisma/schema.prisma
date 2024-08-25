@@ -29,8 +29,17 @@ model User {
   isEmailVerified Boolean   @default(false)
   password        String
   profilePicture  String?
+  sessions        Session[]
   createdAt       DateTime  @default(now()) @db.Date
   updatedAt       DateTime  @updatedAt @db.Date
+}
+
+model Session {
+  id        String  @id @map("_id")
+  userId    String  @db.ObjectId
+  expiresAt DateTime
+
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
 
 model Video {
