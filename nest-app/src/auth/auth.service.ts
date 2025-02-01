@@ -21,7 +21,7 @@ export class AuthService {
   ) {}
 
   async signUp(createAuthDto: CreateAuthDto) {
-    const { fullName, username, email, password } = createAuthDto;
+    const { firstName, lastName, username, email, password } = createAuthDto;
     const existingUserEmail = await this.userModel.findOne({ email });
     const existingUsername = await this.userModel.findOne({ username });
 
@@ -33,7 +33,8 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new this.userModel({
-      fullName,
+      firstName,
+      lastName,
       username,
       email,
       password: hashedPassword,
@@ -54,15 +55,19 @@ export class AuthService {
     if (!isPasswordCorrect)
       throw new UnauthorizedException('Invalid email or password.');
 
+    await this.userModel.updateOne(
+      { email },
+      { $set: { lastLogin: new Date() } },
+    );
+    console.log(user.id);
     const token = await this.jwtService.signAsync({
       sub: user.id,
-      fullName: user.fullName,
-      email: user.email,
-      username: user.username,
-      profileImg: user.profilePicture,
     });
 
-    return { token };
+    const userObj = user.toObject();
+    delete userObj.password;
+
+    return { user: userObj, token };
   }
 
   findAll() {

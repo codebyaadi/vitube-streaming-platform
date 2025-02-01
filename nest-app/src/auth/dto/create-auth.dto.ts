@@ -10,7 +10,12 @@ export class CreateAuthDto {
   @IsString()
   @MinLength(3)
   @MaxLength(50)
-  fullName: string;
+  firstName: string;
+
+  @IsString()
+  @MinLength(3)
+  @MaxLength(50)
+  lastName: string;
 
   @IsString()
   @MinLength(3)

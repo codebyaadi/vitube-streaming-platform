@@ -9,7 +9,13 @@ export class User {
     type: String,
     required: true,
   })
-  fullName: string;
+  firstName: string;
+
+  @Prop({
+    type: String,
+    required: true,
+  })
+  lastName: string;
 
   @Prop({
     type: String,
@@ -46,6 +52,9 @@ export class User {
 
   @Prop({ type: Boolean, default: false })
   isEmailVerified: boolean;
+
+  @Prop({ type: Date, default: Date.now })
+  lastLogin: Date;
 
   @Prop({ type: Date, default: Date.now })
   createdAt: Date;
