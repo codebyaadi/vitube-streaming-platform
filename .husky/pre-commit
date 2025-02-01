@@ -1,2 +1,3 @@
-bunx prettier --write .
-git add .
+#!/bin/sh
+
+bunx lint-staged
