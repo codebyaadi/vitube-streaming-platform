@@ -33,7 +33,8 @@ describe('AuthController', () => {
   describe('signUp', () => {
     it('should create a new user', async () => {
       const dto = {
-        fullName: 'Test User',
+        firstName: 'Test',
+        lastName: 'User',
         email: 'test@example.com',
         username: 'testuser',
         password: 'password123',
@@ -76,7 +77,7 @@ describe('AuthController', () => {
 
   describe('update', () => {
     it('should update auth record', async () => {
-      const dto = { fullName: 'Updated User' };
+      const dto = { firstName: 'Updated User' };
       const result = 'This action updates a #1 auth';
       mockAuthService.update.mockReturnValue(result);
       expect(controller.update('1', dto)).toBe(result);
