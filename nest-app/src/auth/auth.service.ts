@@ -59,9 +59,10 @@ export class AuthService {
       { email },
       { $set: { lastLogin: new Date() } },
     );
-    console.log(user.id);
+
     const token = await this.jwtService.signAsync({
-      sub: user.id,
+      sub: user._id,
+      userId: user.id,
     });
 
     const userObj = user.toObject();
