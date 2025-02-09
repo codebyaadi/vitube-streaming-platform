@@ -8,6 +8,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { VideosModule } from './videos/videos.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
+import { SharedModule } from './shared/shared.module';
+import { AuthMiddleware } from './middleware/auth.middleware';
 
 @Module({
   imports: [
@@ -18,6 +20,7 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
       secret: process.env.JWT_SECRET_KEY,
       signOptions: { expiresIn: '1h' },
     }),
+    SharedModule,
     AuthModule,
     VideosModule,
   ],
@@ -27,5 +30,6 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
+    consumer.apply(AuthMiddleware).forRoutes('videos');
   }
 }
