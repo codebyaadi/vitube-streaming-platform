@@ -45,16 +45,32 @@ export class User {
   })
   profilePicture: string;
 
-  @Prop({
-    type: String,
-  })
-  emailOTP?: string;
-
   @Prop({ type: Boolean, default: false })
   isEmailVerified: boolean;
 
+  @Prop()
+  emailVerificationToken?: string;
+
+  @Prop()
+  emailVerificationTokenExpires?: Date;
+
+  @Prop()
+  passwordResetToken?: string;
+
+  @Prop()
+  passwordResetTokenExpires?: Date;
+
+  @Prop({ default: 0 })
+  loginAttempts: number;
+
+  @Prop()
+  lockUntil?: Date;
+
   @Prop({ type: Date, default: Date.now })
   lastLogin: Date;
+
+  @Prop()
+  refreshToken?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -60,15 +60,75 @@ export class AuthService {
       { $set: { lastLogin: new Date() } },
     );
 
-    const token = await this.jwtService.signAsync({
-      sub: user._id,
-      userId: user.id,
+    const tokens = await this.getTokens(user.id, user.email);
+
+    await this.updateRefreshToken(user.id, tokens.refreshToken);
+
+    const {
+      password: _,
+      refreshToken: __,
+      loginAttempts: ___,
+      ...userData
+    } = user.toObject();
+
+    return { user: userData, tokens };
+  }
+
+  async refreshToken(
+    userId: string,
+    refreshToken: string,
+  ): Promise<{ accessToken: string }> {
+    const user = await this.userModel.findById(userId);
+    if (!user || !user.refreshToken) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    const refreshTokenMatches = await bcrypt.compare(
+      refreshToken,
+      user.refreshToken,
+    );
+    if (!refreshTokenMatches) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    const tokens = await this.getTokens(user.id, user.email);
+    await this.updateRefreshToken(user.id, tokens.refreshToken);
+
+    return { accessToken: tokens.accessToken };
+  }
+
+  private async getTokens(userId: string, email: string) {
+    const [accessToken, refreshToken] = await Promise.all([
+      this.jwtService.signAsync(
+        {
+          sub: userId,
+          email,
+        },
+        {
+          expiresIn: '1h',
+        },
+      ),
+      this.jwtService.signAsync(
+        {
+          sub: userId,
+          email,
+        },
+        {
+          expiresIn: '7d',
+        },
+      ),
+    ]);
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+
+  private async updateRefreshToken(userId: string, refreshToken: string) {
+    const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
+    await this.userModel.findByIdAndUpdate(userId, {
+      refreshToken: hashedRefreshToken,
     });
-
-    const userObj = user.toObject();
-    delete userObj.password;
-
-    return { user: userObj, token };
   }
 
   findAll() {

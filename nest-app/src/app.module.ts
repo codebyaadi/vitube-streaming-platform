@@ -9,7 +9,6 @@ import { AuthModule } from './auth/auth.module';
 import { VideosModule } from './videos/videos.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { SharedModule } from './shared/shared.module';
-import { AuthMiddleware } from './middleware/auth.middleware';
 
 @Module({
   imports: [
@@ -30,6 +29,5 @@ import { AuthMiddleware } from './middleware/auth.middleware';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
-    consumer.apply(AuthMiddleware).forRoutes('videos');
   }
 }
