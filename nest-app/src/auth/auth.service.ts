@@ -7,17 +7,20 @@ import { InjectModel } from '@nestjs/mongoose';
 import { JwtService } from '@nestjs/jwt';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import * as crypto from 'node:crypto';
 
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { LogInDto } from './dto/login-auth.dto';
 import { User } from '../schemas/user.schema';
+import { MailService } from './services/mail.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
     private jwtService: JwtService,
+    private mailService: MailService,
   ) {}
 
   async signUp(createAuthDto: CreateAuthDto) {
@@ -30,6 +33,10 @@ export class AuthService {
     if (existingUsername)
       throw new ConflictException('Username is already taken.');
 
+    const verificationToken = crypto.randomBytes(32).toString('hex');
+    const verificationTokenExpires = new Date();
+    verificationTokenExpires.setDate(verificationTokenExpires.getHours() + 1);
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new this.userModel({
@@ -39,6 +46,9 @@ export class AuthService {
       email,
       password: hashedPassword,
     });
+
+    // await this.mailService.sendVerificationEmail(email, verificationToken);
+
     const savedUser = await newUser.save();
     const user = savedUser.toObject();
     delete user.password;
