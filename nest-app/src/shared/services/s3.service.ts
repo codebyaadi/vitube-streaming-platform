@@ -83,5 +83,3 @@ export class S3Service {
       : `${folder}/${timestamp}-${randomString}.${extension}`;
   }
 }
-
-// https://claude.ai/chat/6758f583-8f39-4924-a16c-b3bf8cf2495f
